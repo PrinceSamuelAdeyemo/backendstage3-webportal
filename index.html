@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Backend Stage 3 Web Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="auth-panel" aria-labelledby="page-title">
+      <div class="brand-row">
+        <div>
+          <p class="eyebrow">Backend Stage 3</p>
+          <h1 id="page-title">Web Portal</h1>
+        </div>
+        <span id="status-pill" class="status-pill">Signed out</span>
+      </div>
+
+      <label class="field">
+        <span>Backend API URL</span>
+        <input id="api-base" type="url" value="http://localhost:8000/api/v1" autocomplete="url">
+      </label>
+
+      <div class="tabs" role="tablist" aria-label="Login options">
+        <button id="password-tab" class="tab active" type="button">Password</button>
+        <button id="github-tab" class="tab" type="button">GitHub</button>
+      </div>
+
+      <form id="password-form" class="login-form">
+        <label class="field">
+          <span>Username</span>
+          <input id="username" type="text" autocomplete="username" required>
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input id="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="primary-btn" type="submit">Sign in</button>
+      </form>
+
+      <div id="github-form" class="login-form hidden">
+        <button id="github-login" class="primary-btn" type="button">Continue with GitHub</button>
+      </div>
+
+      <p id="message" class="message" role="status"></p>
+    </section>
+
+    <section class="workspace" aria-labelledby="workspace-title">
+      <div class="toolbar">
+        <div>
+          <p class="eyebrow">Current Session</p>
+          <h2 id="workspace-title">Profiles</h2>
+        </div>
+        <div class="toolbar-actions">
+          <button id="refresh-session" class="secondary-btn" type="button">Refresh token</button>
+          <button id="logout" class="secondary-btn" type="button">Log out</button>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div>
+          <span class="metric-label">User</span>
+          <strong id="current-user">-</strong>
+        </div>
+        <div>
+          <span class="metric-label">Role</span>
+          <strong id="current-role">-</strong>
+        </div>
+        <div>
+          <span class="metric-label">Profiles loaded</span>
+          <strong id="profile-count">0</strong>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input id="search-query" type="search" placeholder="Search, e.g. young males from nigeria">
+        <select id="gender-filter">
+          <option value="">Any gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <button id="load-profiles" class="primary-btn" type="button">Load</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Group</th>
+              <th>Country</th>
+            </tr>
+          </thead>
+          <tbody id="profiles-body">
+            <tr>
+              <td colspan="5" class="empty-cell">Sign in to load profiles.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
