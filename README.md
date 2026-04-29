@@ -16,16 +16,16 @@ Open:
 http://localhost:5500
 ```
 
-Set the backend API URL in the page:
+On localhost, the page defaults to the local backend API:
 
 ```text
 http://localhost:8000/api/v1
 ```
 
-For a hosted backend, replace it with your hosted API base URL, for example:
+On the hosted web portal, it defaults to the live backend API:
 
 ```text
-https://your-backend.example.com/api/v1
+https://hng14stage3-backend.vercel.app/api/v1
 ```
 
 ## Login Methods
@@ -43,8 +43,9 @@ GET /api/v1/auth/github/start
 GET /api/v1/auth/github/callback
 ```
 
-For GitHub OAuth, your GitHub OAuth app must allow the frontend URL as a callback URL, for example:
+For GitHub OAuth, your GitHub OAuth app must allow the frontend URL as a callback URL for the static web client:
 
 ```text
 http://localhost:5500/
+https://backendstage3-webportal.vercel.app/
 ```

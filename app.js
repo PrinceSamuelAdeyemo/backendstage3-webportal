@@ -20,9 +20,23 @@ const els = {
   logout: document.querySelector("#logout"),
 };
 
+const LOCAL_API_BASE = "http://localhost:8000/api/v1";
+const LIVE_API_BASE = "https://hng14stage3-backend.vercel.app/api/v1";
+const LIVE_WEB_PORTAL_URL = "https://backendstage3-webportal.vercel.app/";
+
+function defaultApiBase() {
+  return ["localhost", "127.0.0.1"].includes(window.location.hostname) ? LOCAL_API_BASE : LIVE_API_BASE;
+}
+
+function webRedirectUri() {
+  return ["localhost", "127.0.0.1"].includes(window.location.hostname)
+    ? `${window.location.origin}${window.location.pathname}`
+    : LIVE_WEB_PORTAL_URL;
+}
+
 const storage = {
   get apiBase() {
-    return localStorage.getItem("stage3_api_base") || "http://localhost:8000/api/v1";
+    return localStorage.getItem("stage3_api_base") || defaultApiBase();
   },
   set apiBase(value) {
     localStorage.setItem("stage3_api_base", cleanApiBase(value));
@@ -168,7 +182,7 @@ async function startGithubLogin() {
   storage.apiBase = els.apiBase.value;
   setMessage("Opening GitHub...");
   try {
-    const redirectUri = `${window.location.origin}${window.location.pathname}`;
+    const redirectUri = webRedirectUri();
     const data = await apiFetch(`/auth/github/start?client=cli&redirect_uri=${encodeURIComponent(redirectUri)}`);
     sessionStorage.setItem("stage3_code_verifier", data.code_verifier);
     window.location.href = data.authorize_url;
