@@ -183,7 +183,7 @@ async function startGithubLogin() {
   setMessage("Opening GitHub...");
   try {
     const redirectUri = webRedirectUri();
-    const data = await apiFetch(`/auth/github/?client=web&redirect_uri=${encodeURIComponent(redirectUri)}`);
+    const data = await apiFetch(`/auth/github/start?client=cli&redirect_uri=${encodeURIComponent(redirectUri)}`);
     sessionStorage.setItem("stage3_code_verifier", data.code_verifier);
     window.location.href = data.authorize_url;
   } catch (error) {
